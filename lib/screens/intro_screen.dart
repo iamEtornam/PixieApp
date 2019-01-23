@@ -37,8 +37,8 @@ class _IntroScreenState extends State<IntroScreen> {
     super.initState();
     slides.add(
       new Slide(
-        title: "ERASER",
-        description: "Allow miles wound place the leave had. To sitting subject no improve studied limited",
+        title: "Welcome to Pixie",
+        description: "We believe that your photograph worth a thousand of words without even saying any word.",
         styleTitle: TextStyle(
           color: Colors.green
         ),
@@ -47,8 +47,8 @@ class _IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
       new Slide(
-        title: "PENCIL",
-        description: "Ye indulgence unreserved connection alteration appearance",
+        title: "Capture Moments",
+        description: "Moment are rare. Capture each of these moments and share with the world.",
         backgroundColor: Colors.white,
       ),
     );
@@ -79,6 +79,10 @@ class _IntroScreenState extends State<IntroScreen> {
       slides: this.slides,
       onDonePress: this.onDonePress,
       onSkipPress: this.onSkipPress,
+      colorActiveDot: Colors.green,
+      isShowDotIndicator: true,
+      highlightColorDoneBtn: Colors.green,
+      highlightColorSkipBtn: Colors.red,
     );
   }
 }
