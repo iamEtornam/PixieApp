@@ -183,32 +183,39 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (BuildContext context, int index) =>
                           GestureDetector(
                               onTap: () {
-                                MaterialPageRoute(builder: (context) =>
-                                    SinglePostScreen(value: data[index]));
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SinglePostScreen(value: data[index]));
                               },
                               child: Container(
                                   child: Card(
-                            child: Container(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: TransitionToImage(
-                                    AdvancedNetworkImage(
-                                        '${data[index]['webformatURL']}?raw=true',
-                                        loadFailedCallback: () {
+                                    child: Container(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            10.0),
+                                        child: TransitionToImage(
+                                            AdvancedNetworkImage(
+                                                '${data[index]['webformatURL']}?raw=true',
+                                                loadFailedCallback: () {
                                           print('Oh, no!');
                                           getJsonData();
-                                        }, useDiskCache: true, retryLimit: 10),
-                                    loadingWidget: SpinKitHourGlass(
-                                      color: Colors.green,
-                                      size: 50.0,
+                                                }, loadedCallback: () {
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SinglePostScreen(
+                                                          value: data[index]));
+                                            }, useDiskCache: true, retryLimit: 10),
+                                            loadingWidget: SpinKitHourGlass(
+                                              color: Colors.green,
+                                              size: 50.0,
+                                            ),
+                                            fit: BoxFit.cover,
+                                            placeholder: const Icon(
+                                              Icons.image,
+                                              size: 100.0,
+                                            )),
+                                      ),
                                     ),
-                                    fit: BoxFit.cover,
-                                    placeholder: const Icon(
-                                      Icons.image,
-                                      size: 100.0,
-                                    )),
-                              ),
-                            ),
                                   ))),
                       staggeredTileBuilder: (int index) =>
                       new StaggeredTile.count(2, index.isEven ? 2 : 1),
