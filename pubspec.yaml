@@ -26,6 +26,7 @@ dependencies:
   flutter_advanced_networkimage: any
   progress_indicators: ^0.1.2
   intl: ^0.15.7
+  flutter_spinkit: ^3.1.0
 
 dev_dependencies:
   flutter_test:

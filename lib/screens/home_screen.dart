@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
 import 'package:flutter_advanced_networkimage/transition_to_image.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
-import 'package:pixie_app/screens/intro_screen.dart';
-import 'package:progress_indicators/progress_indicators.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'package:pixie_app/screens/intro_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,12 +17,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var currentDate;
+  var greetingOfDay;
   static final String isOpened = "isOpened";
   bool openedState = false;
   bool gettingData = false;
   List data;
   final String url =
-      "https://pixabay.com/api/?key=11027419-3b7491979bc801685fa2b6ce3&q=yellow+flowers&image_type=photo&pretty=true";
+      "https://pixabay.com/api/?key=11027419-3b7491979bc801685fa2b6ce3&q=nature&image_type=photo";
 
   //fetch data
   Future<String> getJsonData() async {
@@ -67,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
@@ -78,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: ListView.builder(
-        scrollDirection: Axis.vertical,
+          scrollDirection: Axis.vertical,
           padding: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 5.0),
           itemCount: 1,
           physics: ClampingScrollPhysics(),
@@ -95,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Good Morning, Etornam',
+                          '$greetingOfDay Etornam',
                           style: TextStyle(
                               fontSize: 22.0,
                               color: Colors.black,
@@ -113,8 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     GestureDetector(
                       child: Container(
-                        width: 50.0,
-                        height: 50.0,
+                        width: 45.0,
+                        height: 45.0,
                         decoration: BoxDecoration(
                             color: Colors.green,
                             shape: BoxShape.circle,
@@ -132,60 +134,82 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 15.0,
                 ),
-                Container(
+                gettingData
+                    ? Center(
+                    child: Container(
+                      child: SpinKitHourGlass(
+                        color: Colors.green,
+                        size: 100.0,
+                      ),
+                    ))
+                    : Container(
                   width: double.infinity,
                   height: 200.0,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      image: DecorationImage(
-                          image: AdvancedNetworkImage(
-                              'https://pixabay.com/get/e83cb30820f1023ed1584d05fb1d4797e375e5d118b80c4090f4c97ba1edb4bbdf_1280.jpg',
-                              useDiskCache: true,
-                              retryLimit: 8),
-                          fit: BoxFit.cover)),
+                  child: Card(
+                    child: Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: TransitionToImage(
+                            AdvancedNetworkImage(
+                                'https://pixabay.com/get/e83cb30820f0063ed1584d05fb1d4797e375e5d118b80c4090f4c97ba0e4b0bbd8_640.jpg',
+                                loadFailedCallback: () {
+                                  print('Oh, no!');
+                                  getJsonData();
+                                }, useDiskCache: true, retryLimit: 10),
+                            loadingWidget: SpinKitHourGlass(
+                              color: Colors.green,
+                              size: 50.0,
+                            ),
+                            fit: BoxFit.cover,
+                            placeholder: const Icon(
+                              Icons.error_outline,
+                              size: 80.0,
+                            )),
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 10.0,
                 ),
-                gettingData
-                    ? CircularProgressIndicator()
-                    : Flexible(
-                        fit: FlexFit.loose,
-                        child: StaggeredGridView.countBuilder(
-                          crossAxisCount: 4,
-                          itemCount: data == null ? 0 : data.length,
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) =>
-                              new Container(
-                                  child: Card(
-                                child: Container(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: TransitionToImage(
-                                      AdvancedNetworkImage(
-                                          '${data[index]['largeImageURL']}?raw=true',
-                                          loadFailedCallback: () {
-                                        print('Oh, no!');
-                                        getJsonData();
-                                      }),
-                                      loadingWidget: GlowingProgressIndicator(
-                                        child: Icon(Icons.image),
-                                      ),
-                                      fit: BoxFit.contain,
-                                      placeholder: const Icon(Icons.image),
-                                      width: 120.0,
-                                      height: 120.0,
+                Flexible(
+                    fit: FlexFit.loose,
+                    child: StaggeredGridView.countBuilder(
+                      crossAxisCount: 4,
+                      itemCount: data == null ? 0 : data.length,
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) =>
+                      new Container(
+                          child: Card(
+                            child: Container(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: TransitionToImage(
+                                    AdvancedNetworkImage(
+                                        '${data[index]['webformatURL']}?raw=true',
+                                        loadFailedCallback: () {
+                                          print('Oh, no!');
+                                          getJsonData();
+                                        }, useDiskCache: true,
+                                        retryLimit: 10),
+                                    loadingWidget: SpinKitHourGlass(
+                                      color: Colors.green,
+                                      size: 50.0,
                                     ),
-                                  ),
-                                ),
-                              )),
-                          staggeredTileBuilder: (int index) =>
-                              new StaggeredTile.count(2, index.isEven ? 2 : 1),
-                          mainAxisSpacing: 4.0,
-                          crossAxisSpacing: 4.0,
-                        ))
+                                    fit: BoxFit.cover,
+                                    placeholder: const Icon(
+                                      Icons.image,
+                                      size: 100.0,
+                                    )),
+                              ),
+                            ),
+                          )),
+                      staggeredTileBuilder: (int index) =>
+                      new StaggeredTile.count(2, index.isEven ? 2 : 1),
+                      mainAxisSpacing: 4.0,
+                      crossAxisSpacing: 4.0,
+                    ))
               ],
             );
           }),
@@ -209,8 +233,10 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.dashboard,
-                color: Colors.green,),
+                icon: Icon(
+                  Icons.dashboard,
+                  color: Colors.green,
+                ),
                 onPressed: () {},
               ),
               IconButton(
@@ -234,8 +260,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void getCurrentDate() {
     var now = new DateTime.now();
-    var formatter = new DateFormat.yMMMMd("en_US").add_jm();
+    var formatter = new DateFormat.yMMMMd("en_US");
     currentDate = formatter.format(now).toUpperCase();
-    print(currentDate);
+
+    var hourOfDay = TimeOfDay
+        .now()
+        .hour;
+    if (hourOfDay >= 0 && hourOfDay < 12) {
+      //morning
+      print('morning');
+      greetingOfDay = "Good Morning, ";
+    } else if (hourOfDay >= 12 && hourOfDay < 17) {
+      //afternoon
+      print('afternoon');
+      greetingOfDay = "Good Afternoon, ";
+    } else if (hourOfDay >= 17 && hourOfDay < 24) {
+      //evening
+      print('evening');
+      greetingOfDay = "Good Evening, ";
+    } else {
+      //hello name
+      print('hello bright');
+      greetingOfDay = "Hello there, ";
+    }
   }
 }
