@@ -8,6 +8,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:pixie_app/screens/intro_screen.dart';
+import 'package:pixie_app/screens/single_post_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -180,8 +181,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) =>
-                      new Container(
-                          child: Card(
+                          GestureDetector(
+                              onTap: () {
+                                MaterialPageRoute(builder: (context) =>
+                                    SinglePostScreen(value: data[index]));
+                              },
+                              child: Container(
+                                  child: Card(
                             child: Container(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -191,8 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         loadFailedCallback: () {
                                           print('Oh, no!');
                                           getJsonData();
-                                        }, useDiskCache: true,
-                                        retryLimit: 10),
+                                        }, useDiskCache: true, retryLimit: 10),
                                     loadingWidget: SpinKitHourGlass(
                                       color: Colors.green,
                                       size: 50.0,
@@ -204,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     )),
                               ),
                             ),
-                          )),
+                                  ))),
                       staggeredTileBuilder: (int index) =>
                       new StaggeredTile.count(2, index.isEven ? 2 : 1),
                       mainAxisSpacing: 4.0,
