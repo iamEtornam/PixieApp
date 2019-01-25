@@ -5,6 +5,7 @@ import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart
 import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
+import 'package:pixie_app/screens/edit_profile_screen.dart';
 import 'package:pixie_app/screens/single_post_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -464,7 +465,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EditProfileScreen()));
+        },
         mini: true,
         backgroundColor: Colors.green,
         child: Icon(
