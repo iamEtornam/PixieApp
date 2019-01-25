@@ -9,6 +9,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.green),
         backgroundColor: Colors.white,
@@ -27,6 +28,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             'Update',
             style: TextStyle(color: Colors.white),
           )),
+      body: Container(),
     );
   }
 }
