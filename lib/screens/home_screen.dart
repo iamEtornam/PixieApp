@@ -138,14 +138,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 15.0,
                 ),
-                gettingData
-                    ? Center(
-                    child: Container(
-                      child: SpinKitHourGlass(
-                        color: Colors.green,
-                        size: 100.0,
-                      ),
-                    ))
+                data == null
+                    ? Container(
+                  height: 250.0,
+                  width: double.infinity,
+                  child: Center(
+                    child: Text(
+                      'No Post',
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24.0),
+                    ),
+                  ),
+                )
                     : Container(
                   width: double.infinity,
                   height: 200.0,
@@ -160,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   print('Oh, no!');
                                   getJsonData();
                                 }, useDiskCache: true, retryLimit: 10),
-                            loadingWidget: SpinKitHourGlass(
+                            loadingWidget: SpinKitRipple(
                               color: Colors.green,
                               size: 50.0,
                             ),
@@ -208,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 },
                                                 useDiskCache: true,
                                                 retryLimit: 10),
-                                            loadingWidget: SpinKitHourGlass(
+                                            loadingWidget: SpinKitRipple(
                                               color: Colors.green,
                                               size: 50.0,
                                             ),
@@ -219,8 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )),
                                       ),
                                     ),
-                                  ))
-                          ),
+                                  ))),
                       staggeredTileBuilder: (int index) =>
                       new StaggeredTile.count(2, index.isEven ? 2 : 1),
                       mainAxisSpacing: 4.0,

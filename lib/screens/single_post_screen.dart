@@ -29,9 +29,9 @@ class _SinglePostScreenState extends State<SinglePostScreen> {
 
                   print('Oh, no!');
                 }, useDiskCache: true, retryLimit: 8),
-            loadingWidget: SpinKitFoldingCube(
+            loadingWidget: SpinKitRipple(
               color: Colors.green,
-              size: 50.0,
+              size: 100.0,
             ),
             fit: BoxFit.cover,
             placeholder: const Icon(
