@@ -8,6 +8,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:pixie_app/screens/intro_screen.dart';
+import 'package:pixie_app/screens/profile_screen.dart';
 import 'package:pixie_app/screens/single_post_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,9 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
       gettingData = true;
       var dataConvertedToJSON = json.decode(response.body);
       data = dataConvertedToJSON['hits'];
-    });
-
-    setState(() {
       gettingData = false;
     });
 
@@ -128,7 +126,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     retryLimit: 8),
                                 fit: BoxFit.fill)),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileScreen()));
+                      },
                     ),
                   ],
                 ),
@@ -183,9 +186,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (BuildContext context, int index) =>
                           GestureDetector(
                               onTap: () {
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SinglePostScreen(value: data[index]));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SinglePostScreen(
+                                                value: data[index])));
                               },
                               child: Container(
                                   child: Card(
@@ -199,12 +205,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 loadFailedCallback: () {
                                           print('Oh, no!');
                                           getJsonData();
-                                                }, loadedCallback: () {
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      SinglePostScreen(
-                                                          value: data[index]));
-                                            }, useDiskCache: true, retryLimit: 10),
+                                                },
+                                                useDiskCache: true,
+                                                retryLimit: 10),
                                             loadingWidget: SpinKitHourGlass(
                                               color: Colors.green,
                                               size: 50.0,
@@ -216,7 +219,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )),
                                       ),
                                     ),
-                                  ))),
+                                  ))
+                          ),
                       staggeredTileBuilder: (int index) =>
                       new StaggeredTile.count(2, index.isEven ? 2 : 1),
                       mainAxisSpacing: 4.0,
@@ -239,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: CircularNotchedRectangle(),
         notchMargin: 6.0,
         child: Padding(
-          padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+          padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -252,10 +256,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {},
               ),
               IconButton(
+                padding: EdgeInsets.only(right: 30.0),
                 icon: Icon(Icons.explore),
                 onPressed: () {},
               ),
               IconButton(
+                padding: EdgeInsets.only(left: 30.0),
                 icon: Icon(Icons.notifications),
                 onPressed: () {},
               ),

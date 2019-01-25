@@ -24,8 +24,9 @@ class _SinglePostScreenState extends State<SinglePostScreen> {
         width: double.infinity,
         child: TransitionToImage(
             AdvancedNetworkImage(
-                '${widget.value['backdrop_path']}',
+                '${widget.value['webformatURL']}',
                 loadFailedCallback: () {
+
                   print('Oh, no!');
                 }, useDiskCache: true, retryLimit: 8),
             loadingWidget: SpinKitFoldingCube(
