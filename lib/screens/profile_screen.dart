@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -63,91 +64,91 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       endDrawer: Drawer(
           child: Container(
-            color: Colors.green,
-            child: ListView(
-              padding: EdgeInsets.all(8.0),
-              children: <Widget>[
-                SizedBox(
-                  height: 24.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Setting here',
-                    style: TextStyle(color: Colors.white, fontSize: 18.0),
-                  ),
-                  leading: Icon(
-                    Icons.settings,
-                    size: 40.0,
-                    color: Colors.white,
-                  ),
-                  onTap: () {},
-                ),
-                Divider(
-                  color: Colors.white,
-                ),
-                ListTile(
-                  title: Text(
-                    'Setting here',
-                    style: TextStyle(color: Colors.white, fontSize: 18.0),
-                  ),
-                  leading: Icon(
-                    Icons.settings,
-                    size: 40.0,
-                    color: Colors.white,
-                  ),
-                  onTap: () {},
-                ),
-                Divider(
-                  color: Colors.white,
-                ),
-                ListTile(
-                  title: Text(
-                    'Setting here',
-                    style: TextStyle(color: Colors.white, fontSize: 18.0),
-                  ),
-                  leading: Icon(
-                    Icons.settings,
-                    size: 40.0,
-                    color: Colors.white,
-                  ),
-                  onTap: () {},
-                ),
-                Divider(
-                  color: Colors.white,
-                ),
-                ListTile(
-                  title: Text(
-                    'Setting here',
-                    style: TextStyle(color: Colors.white, fontSize: 18.0),
-                  ),
-                  leading: Icon(
-                    Icons.settings,
-                    size: 40.0,
-                    color: Colors.white,
-                  ),
-                  onTap: () {},
-                ),
-                Divider(
-                  color: Colors.white,
-                ),
-                ListTile(
-                  title: Text(
-                    'Setting here',
-                    style: TextStyle(color: Colors.white, fontSize: 18.0),
-                  ),
-                  leading: Icon(
-                    Icons.settings,
-                    size: 40.0,
-                    color: Colors.white,
-                  ),
-                  onTap: () {},
-                ),
-                Divider(
-                  color: Colors.white,
-                ),
-              ],
+        color: Colors.green,
+        child: ListView(
+          padding: EdgeInsets.all(8.0),
+          children: <Widget>[
+            SizedBox(
+              height: 24.0,
             ),
-          )),
+            ListTile(
+              title: Text(
+                'Setting here',
+                style: TextStyle(color: Colors.white, fontSize: 18.0),
+              ),
+              leading: Icon(
+                Icons.settings,
+                size: 40.0,
+                color: Colors.white,
+              ),
+              onTap: () {},
+            ),
+            Divider(
+              color: Colors.white,
+            ),
+            ListTile(
+              title: Text(
+                'Setting here',
+                style: TextStyle(color: Colors.white, fontSize: 18.0),
+              ),
+              leading: Icon(
+                Icons.settings,
+                size: 40.0,
+                color: Colors.white,
+              ),
+              onTap: () {},
+            ),
+            Divider(
+              color: Colors.white,
+            ),
+            ListTile(
+              title: Text(
+                'Setting here',
+                style: TextStyle(color: Colors.white, fontSize: 18.0),
+              ),
+              leading: Icon(
+                Icons.settings,
+                size: 40.0,
+                color: Colors.white,
+              ),
+              onTap: () {},
+            ),
+            Divider(
+              color: Colors.white,
+            ),
+            ListTile(
+              title: Text(
+                'Setting here',
+                style: TextStyle(color: Colors.white, fontSize: 18.0),
+              ),
+              leading: Icon(
+                Icons.settings,
+                size: 40.0,
+                color: Colors.white,
+              ),
+              onTap: () {},
+            ),
+            Divider(
+              color: Colors.white,
+            ),
+            ListTile(
+              title: Text(
+                'Setting here',
+                style: TextStyle(color: Colors.white, fontSize: 18.0),
+              ),
+              leading: Icon(
+                Icons.settings,
+                size: 40.0,
+                color: Colors.white,
+              ),
+              onTap: () {},
+            ),
+            Divider(
+              color: Colors.white,
+            ),
+          ],
+        ),
+      )),
       body: ListView.builder(
           itemCount: 1,
           physics: ClampingScrollPhysics(),
@@ -281,14 +282,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Center(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(45.0, 0.0, 45.0, 0.0),
-                      child: Text(
-                        'Software Engineer and Cyber Security Specialist',
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    )),
+                  padding: EdgeInsets.fromLTRB(45.0, 0.0, 45.0, 0.0),
+                  child: Text(
+                    'Software Engineer and Cyber Security Specialist',
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                )),
                 SizedBox(
                   height: 15.0,
                 ),
@@ -308,11 +309,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Center(
                           child: Padding(
                             padding:
-                            EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+                                EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
                             child: Text(
                               'Message(s)',
                               style:
-                              TextStyle(fontSize: 14.0, color: Colors.grey),
+                                  TextStyle(fontSize: 14.0, color: Colors.grey),
                             ),
                           ),
                         ),
@@ -332,7 +333,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Center(
                           child: Padding(
                             padding:
-                            EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+                                EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
                             child: Text(
                               'Following',
                               style: TextStyle(
@@ -405,69 +406,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fit: FlexFit.loose,
                     child: data == null
                         ? Center(
-                      child: Text(
-                        'No Post',
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24.0),
-                      ),
-                    )
-                        : Padding(
-                      padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
-                      child: GridView.count(
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                        crossAxisCount: 2,
-                        children: List.generate(
-                            data == null ? 0 : data.length, (index) {
-                          return GestureDetector(
-                            child: Card(
-                              child: Container(
-                                child: ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(10.0),
-                                  child: TransitionToImage(
-                                      AdvancedNetworkImage(
-                                          '${data[index]['webformatURL']}?raw=true',
-                                          loadFailedCallback: () {
-                                            print('Oh, no!');
-                                            getJsonData();
-                                          },
-                                          useDiskCache: true,
-                                          retryLimit: 10),
-                                      loadingWidget: SpinKitRipple(
-                                        color: Colors.green,
-                                        size: 50.0,
-                                      ),
-                                      fit: BoxFit.cover,
-                                      placeholder: const Icon(
-                                        Icons.terrain,
-                                        size: 100.0,
-                                      )),
-                                ),
-                              ),
+                            child: Text(
+                              'No Post',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24.0),
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          SinglePostScreen(
-                                              value: data[index])));
-                            },
-                          );
-                        }),
-                      ),
-                    )),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+                            child: GridView.count(
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              crossAxisCount: 2,
+                              children: List.generate(
+                                  data == null ? 0 : data.length, (index) {
+                                return GestureDetector(
+                                  child: Card(
+                                    child: Container(
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        child: TransitionToImage(
+                                            AdvancedNetworkImage(
+                                                '${data[index]['webformatURL']}?raw=true',
+                                                loadFailedCallback: () {
+                                              print('Oh, no!');
+                                              getJsonData();
+                                            },
+                                                useDiskCache: true,
+                                                retryLimit: 10),
+                                            loadingWidget: SpinKitRipple(
+                                              color: Colors.green,
+                                              size: 50.0,
+                                            ),
+                                            fit: BoxFit.cover,
+                                            placeholder: const Icon(
+                                              Icons.terrain,
+                                              size: 100.0,
+                                            )),
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SinglePostScreen(
+                                                    value: data[index])));
+                                  },
+                                );
+                              }),
+                            ),
+                          )),
               ],
             );
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context,
+          Navigator.push(context,
               MaterialPageRoute(builder: (context) => EditProfileScreen()));
         },
         mini: true,

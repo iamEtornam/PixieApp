@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:pixie_app/screens/home_screen.dart';
@@ -14,23 +16,21 @@ class _IntroScreenState extends State<IntroScreen> {
   bool openedState = false;
 
   //set whether screen has already shown
-  Future <bool> setIsOpen(bool value) async {
+  Future<bool> setIsOpen(bool value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setBool(isOpened, value);
   }
 
-  Future<bool> getIsOpen() async{
+  Future<bool> getIsOpen() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     openedState = prefs.getBool(isOpened);
-    if(openedState == true){
-      Navigator.push(context, MaterialPageRoute(
-          builder: (context) => HomeScreen()
-      ));
+    if (openedState == true) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }
     print(openedState);
     return openedState;
   }
-
 
   @override
   void initState() {
@@ -38,37 +38,37 @@ class _IntroScreenState extends State<IntroScreen> {
     slides.add(
       new Slide(
         title: "Welcome to Pixie",
-        description: "We believe that your photograph worth a thousand of words without even saying any word.",
-        styleTitle: TextStyle(
-          color: Colors.green
-        ),
+        description:
+            "We believe that your photograph worth a thousand of words without even saying any word.",
+        styleTitle: TextStyle(color: Colors.green),
         backgroundColor: Colors.white,
       ),
     );
     slides.add(
       new Slide(
         title: "Capture Moments",
-        description: "Moment are rare. Capture each of these moments and share with the world.",
+        description:
+            "Moment are rare. Capture each of these moments and share with the world.",
         backgroundColor: Colors.white,
       ),
     );
     slides.add(
       new Slide(
         title: "PENCIL",
-        description: "Ye indulgence unreserved connection alteration appearance",
-
+        description:
+            "Ye indulgence unreserved connection alteration appearance",
         backgroundColor: Colors.white,
       ),
     );
     getIsOpen();
   }
 
-  void onDonePress(){
+  void onDonePress() {
     setIsOpen(true);
     getIsOpen();
   }
 
-  void onSkipPress(){
+  void onSkipPress() {
     setIsOpen(true);
     getIsOpen();
   }

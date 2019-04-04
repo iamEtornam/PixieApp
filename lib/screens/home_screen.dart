@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -140,45 +141,45 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 data == null
                     ? Container(
-                  height: 250.0,
-                  width: double.infinity,
-                  child: Center(
-                    child: Text(
-                      'No Post',
-                      style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24.0),
-                    ),
-                  ),
-                )
+                        height: 250.0,
+                        width: double.infinity,
+                        child: Center(
+                          child: Text(
+                            'No Post',
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24.0),
+                          ),
+                        ),
+                      )
                     : Container(
-                  width: double.infinity,
-                  height: 200.0,
-                  child: Card(
-                    child: Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: TransitionToImage(
-                            AdvancedNetworkImage(
-                                'https://pixabay.com/get/e83cb30820f0063ed1584d05fb1d4797e375e5d118b80c4090f4c97ba0e4b0bbd8_640.jpg',
-                                loadFailedCallback: () {
-                                  print('Oh, no!');
-                                  getJsonData();
-                                }, useDiskCache: true, retryLimit: 10),
-                            loadingWidget: SpinKitRipple(
-                              color: Colors.green,
-                              size: 50.0,
+                        width: double.infinity,
+                        height: 200.0,
+                        child: Card(
+                          child: Container(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: TransitionToImage(
+                                  AdvancedNetworkImage(
+                                      'https://pixabay.com/get/e83cb30820f0063ed1584d05fb1d4797e375e5d118b80c4090f4c97ba0e4b0bbd8_640.jpg',
+                                      loadFailedCallback: () {
+                                    print('Oh, no!');
+                                    getJsonData();
+                                  }, useDiskCache: true, retryLimit: 10),
+                                  loadingWidget: SpinKitRipple(
+                                    color: Colors.green,
+                                    size: 50.0,
+                                  ),
+                                  fit: BoxFit.cover,
+                                  placeholder: const Icon(
+                                    Icons.error_outline,
+                                    size: 80.0,
+                                  )),
                             ),
-                            fit: BoxFit.cover,
-                            placeholder: const Icon(
-                              Icons.error_outline,
-                              size: 80.0,
-                            )),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
                 SizedBox(
                   height: 10.0,
                 ),
@@ -195,39 +196,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            SinglePostScreen(
-                                                value: data[index])));
+                                        builder: (context) => SinglePostScreen(
+                                            value: data[index])));
                               },
                               child: Container(
                                   child: Card(
-                                    child: Container(
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            10.0),
-                                        child: TransitionToImage(
-                                            AdvancedNetworkImage(
-                                                '${data[index]['webformatURL']}?raw=true',
-                                                loadFailedCallback: () {
+                                child: Container(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: TransitionToImage(
+                                        AdvancedNetworkImage(
+                                            '${data[index]['webformatURL']}?raw=true',
+                                            loadFailedCallback: () {
                                           print('Oh, no!');
                                           getJsonData();
-                                                },
-                                                useDiskCache: true,
-                                                retryLimit: 10),
-                                            loadingWidget: SpinKitRipple(
-                                              color: Colors.green,
-                                              size: 50.0,
-                                            ),
-                                            fit: BoxFit.cover,
-                                            placeholder: const Icon(
-                                              Icons.image,
-                                              size: 100.0,
-                                            )),
-                                      ),
-                                    ),
-                                  ))),
+                                        }, useDiskCache: true, retryLimit: 10),
+                                        loadingWidget: SpinKitRipple(
+                                          color: Colors.green,
+                                          size: 50.0,
+                                        ),
+                                        fit: BoxFit.cover,
+                                        placeholder: const Icon(
+                                          Icons.image,
+                                          size: 100.0,
+                                        )),
+                                  ),
+                                ),
+                              ))),
                       staggeredTileBuilder: (int index) =>
-                      new StaggeredTile.count(2, index.isEven ? 2 : 1),
+                          new StaggeredTile.count(2, index.isEven ? 2 : 1),
                       mainAxisSpacing: 4.0,
                       crossAxisSpacing: 4.0,
                     ))
@@ -286,9 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var formatter = new DateFormat.yMMMMd("en_US");
     currentDate = formatter.format(now).toUpperCase();
 
-    var hourOfDay = TimeOfDay
-        .now()
-        .hour;
+    var hourOfDay = TimeOfDay.now().hour;
     if (hourOfDay >= 0 && hourOfDay < 12) {
       //morning
       print('morning');
