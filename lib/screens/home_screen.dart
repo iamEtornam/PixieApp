@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool gettingData = false;
   List data;
   final String url =
-      "https://pixabay.com/api/?key=11027419-3b7491979bc801685fa2b6ce3&q=nature&image_type=photo";
+      "https://pixabay.com/api/?key=(YOUR-API-KEY-HERE)&q=nature&image_type=photo";
 
   //fetch data
   Future<String> getJsonData() async {
