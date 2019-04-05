@@ -17,8 +17,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
   List data;
+    static var apiKey = "(YOUR-API-KEY-HERE)";
   final String url =
-      "https://pixabay.com/api/?key=11027419-3b7491979bc801685fa2b6ce3&q=buildings&image_type=photo";
+      "https://pixabay.com/api/?key=$apiKey&q=buildings&image_type=photo";
 
   //fetch data
   Future<String> getJsonData() async {

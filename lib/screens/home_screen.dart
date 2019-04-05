@@ -25,8 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   bool openedState = false;
   bool gettingData = false;
   List data;
+  static var apiKey = "(YOUR-API-KEY-HERE)";
   final String url =
-      "https://pixabay.com/api/?key=(YOUR-API-KEY-HERE)&q=nature&image_type=photo";
+      "https://pixabay.com/api/?key=$apiKey&q=nature&image_type=photo";
 
   //fetch data
   Future<String> getJsonData() async {
