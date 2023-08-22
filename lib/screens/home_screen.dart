@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
-import 'package:flutter_advanced_networkimage/transition_to_image.dart';
+import 'package:flutter_advanced_networkimage_2/provider.dart';
+import 'package:flutter_advanced_networkimage_2/transition.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
@@ -24,15 +24,15 @@ class _HomeScreenState extends State<HomeScreen> {
   static final String isOpened = "isOpened";
   bool openedState = false;
   bool gettingData = false;
-  List data;
+  List? data;
   static var apiKey = "(YOUR-API-KEY-HERE)";
   final String url =
       "https://pixabay.com/api/?key=$apiKey&q=nature&image_type=photo";
 
   //fetch data
   Future<String> getJsonData() async {
-    var response = await http
-        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+    var response = await http.get(Uri.parse(Uri.encodeFull(url)),
+        headers: {"Accept": "application/json"});
     print(response.body);
 
     setState(() {
@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10.0),
                               child: TransitionToImage(
-                                  AdvancedNetworkImage(
+                                  image: AdvancedNetworkImage(
                                       'https://pixabay.com/get/e83cb30820f0063ed1584d05fb1d4797e375e5d118b80c4090f4c97ba0e4b0bbd8_640.jpg',
                                       loadFailedCallback: () {
                                     print('Oh, no!');
@@ -186,46 +186,43 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Flexible(
                     fit: FlexFit.loose,
-                    child: StaggeredGridView.countBuilder(
+                    child: StaggeredGrid.count(
                       crossAxisCount: 4,
-                      itemCount: data == null ? 0 : data.length,
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) =>
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SinglePostScreen(
-                                            value: data[index])));
-                              },
+                      children: List.generate(data == null ? 0 : data!.length,
+                          (index) {
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SinglePostScreen(
+                                          value: data![index])));
+                            },
+                            child: Container(
+                                child: Card(
                               child: Container(
-                                  child: Card(
-                                child: Container(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: TransitionToImage(
-                                        AdvancedNetworkImage(
-                                            '${data[index]['webformatURL']}?raw=true',
-                                            loadFailedCallback: () {
-                                          print('Oh, no!');
-                                          getJsonData();
-                                        }, useDiskCache: true, retryLimit: 10),
-                                        loadingWidget: SpinKitRipple(
-                                          color: Colors.green,
-                                          size: 50.0,
-                                        ),
-                                        fit: BoxFit.cover,
-                                        placeholder: const Icon(
-                                          Icons.image,
-                                          size: 100.0,
-                                        )),
-                                  ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: TransitionToImage(
+                                      image: AdvancedNetworkImage(
+                                          '${data![index]['webformatURL']}?raw=true',
+                                          loadFailedCallback: () {
+                                        print('Oh, no!');
+                                        getJsonData();
+                                      }, useDiskCache: true, retryLimit: 10),
+                                      loadingWidget: SpinKitRipple(
+                                        color: Colors.green,
+                                        size: 50.0,
+                                      ),
+                                      fit: BoxFit.cover,
+                                      placeholder: const Icon(
+                                        Icons.image,
+                                        size: 100.0,
+                                      )),
                                 ),
-                              ))),
-                      staggeredTileBuilder: (int index) =>
-                          new StaggeredTile.count(2, index.isEven ? 2 : 1),
+                              ),
+                            )));
+                      }),
                       mainAxisSpacing: 4.0,
                       crossAxisSpacing: 4.0,
                     ))
@@ -241,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Colors.white,
         ),
       ),
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         notchMargin: 6.0,

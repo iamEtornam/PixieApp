@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
-import 'package:flutter_advanced_networkimage/transition_to_image.dart';
+import 'package:flutter_advanced_networkimage_2/provider.dart';
+import 'package:flutter_advanced_networkimage_2/transition.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 
 class SinglePostScreen extends StatefulWidget {
   final Map<String, Object> value;
 
-  const SinglePostScreen({Key key, this.value}) : super(key: key);
-
+  const SinglePostScreen({Key? key, required this.value}) : super(key: key);
 
   @override
   _SinglePostScreenState createState() => _SinglePostScreenState();
 }
 
 class _SinglePostScreenState extends State<SinglePostScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +20,8 @@ class _SinglePostScreenState extends State<SinglePostScreen> {
         height: double.infinity,
         width: double.infinity,
         child: TransitionToImage(
-            AdvancedNetworkImage(
-                '${widget.value['webformatURL']}',
-                loadFailedCallback: () {
-
-                  print('Oh, no!');
-                }, useDiskCache: true, retryLimit: 8),
+            image: AdvancedNetworkImage('${widget.value['webformatURL']}',
+                useDiskCache: true, retryLimit: 8),
             loadingWidget: SpinKitRipple(
               color: Colors.green,
               size: 100.0,
@@ -37,8 +30,7 @@ class _SinglePostScreenState extends State<SinglePostScreen> {
             placeholder: const Icon(
               Icons.terrain,
               size: 100.0,
-            )
-        ),
+            )),
       ),
     );
   }

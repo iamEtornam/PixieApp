@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
-import 'package:flutter_advanced_networkimage/transition_to_image.dart';
+import 'package:flutter_advanced_networkimage_2/provider.dart';
+import 'package:flutter_advanced_networkimage_2/transition.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:pixie_app/screens/edit_profile_screen.dart';
@@ -16,15 +16,15 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
-  List data;
-    static var apiKey = "(YOUR-API-KEY-HERE)";
+  List? data;
+  static var apiKey = "(YOUR-API-KEY-HERE)";
   final String url =
       "https://pixabay.com/api/?key=$apiKey&q=buildings&image_type=photo";
 
   //fetch data
   Future<String> getJsonData() async {
-    var response = await http
-        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+    var response = await http.get(Uri.parse(Uri.encodeFull(url)),
+        headers: {"Accept": "application/json"});
     print(response.body);
 
     setState(() {
@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.settings),
-              onPressed: () => _globalKey.currentState.openEndDrawer()),
+              onPressed: () => _globalKey.currentState?.openEndDrawer()),
         ],
       ),
       endDrawer: Drawer(
@@ -189,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '${data == null ? 0 : data.length}',
+                                  '${data == null ? 0 : data!.length}',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -422,7 +422,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               physics: ClampingScrollPhysics(),
                               crossAxisCount: 2,
                               children: List.generate(
-                                  data == null ? 0 : data.length, (index) {
+                                  data == null ? 0 : data!.length, (index) {
                                 return GestureDetector(
                                   child: Card(
                                     child: Container(
@@ -430,8 +430,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                         child: TransitionToImage(
-                                            AdvancedNetworkImage(
-                                                '${data[index]['webformatURL']}?raw=true',
+                                            image: AdvancedNetworkImage(
+                                                '${data?[index]['webformatURL']}?raw=true',
                                                 loadFailedCallback: () {
                                               print('Oh, no!');
                                               getJsonData();
@@ -456,7 +456,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 SinglePostScreen(
-                                                    value: data[index])));
+                                                    value: data![index])));
                                   },
                                 );
                               }),
